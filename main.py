@@ -3,6 +3,15 @@ import math
 from fastapi import FastAPI, Query
 import numpy as np
 import pickle
+
+from sklearn.linear_model import LinearRegression, Ridge, Lasso
+
+from lightgbm import LGBMRegressor
+from xgboost import XGBRegressor
+
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+
 app = FastAPI()
 
 linear = pickle.load(open('./model/linear.pickle','rb'))

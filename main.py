@@ -34,7 +34,7 @@ app.add_middleware(
 
 linear = pickle.load(open('./model/linear.pickle','rb'))
 lasso = pickle.load(open('./model/lasso.pickle','rb'))
-linear = pickle.load(open('./model/ridge.pickle','rb'))
+ridge = pickle.load(open('./model/ridge.pickle','rb'))
 
 lgbm = pickle.load(open('./model/lgbm.pickle','rb'))
 xgb = pickle.load(open('./model/xgb.pickle','rb'))
@@ -67,7 +67,7 @@ def preprocessing(features):
 def root():
     return {"Hello": "Data Science"}
 
-@app.post('/model')
+@app.post('/decision_tree')
 def predict(feature:Data):
     feature = preprocessing(feature.json())
     # print(feature)
@@ -75,6 +75,52 @@ def predict(feature:Data):
     res = math.e**pred
     return res
 
+@app.post('/random_forest')
+def predict(feature:Data):
+    feature = preprocessing(feature.json())
+    # print(feature)
+    pred = rf.predict(feature)[0]
+    res = math.e**pred
+    return res
+
+@app.post('/xgboost')
+def predict(feature:Data):
+    feature = preprocessing(feature.json())
+    # print(feature)
+    pred = xgb.predict(feature)[0]
+    res = math.e**pred
+    return res
+
+@app.post('/lightgbm')
+def predict(feature:Data):
+    feature = preprocessing(feature.json())
+    # print(feature)
+    pred = lgbm.predict(feature)[0]
+    res = math.e**pred
+    return res
+
+@app.post('/linear_regression')
+def predict(feature:Data):
+    feature = preprocessing(feature.json())
+    # print(feature)
+    pred = linear.predict(feature)[0]
+    res = math.e**pred
+    return res
+
+@app.post('/lasso_regression')
+def predict(feature:Data):
+    feature = preprocessing(feature.json())
+    # print(feature)
+    pred = lasso.predict(feature)[0]
+    res = math.e**pred
+    return res
+@app.post('/ridge_regression')
+def predict(feature:Data):
+    feature = preprocessing(feature.json())
+    # print(feature)
+    pred = ridge.predict(feature)[0]
+    res = math.e**pred
+    return res
 # @app.get("/linear_regression/")
 # def linear_regression(features: List[str] = Query(None)):
 #     # pass parameters to model
